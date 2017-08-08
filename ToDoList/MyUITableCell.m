@@ -7,7 +7,7 @@
 //
 
 #import "MyUITableCell.h"
-#import "ToDo.h"
+//#import "MasterViewController.h"
 
 @implementation MyUITableCell
 
@@ -22,7 +22,12 @@
     // Configure the view for the selected state
 }
 
-
-
+- (void) setLabels {
+    
+    //self.taskName = self.todoObjects[0];
+    
+  //  self.taskName.text = @"Hello";
+    
+}
 
 @end

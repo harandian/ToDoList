@@ -9,10 +9,14 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 #import "ToDo.h"
+#import "MyUITableCell.h"
+
 
 @interface MasterViewController ()
 
 @property NSMutableArray *objects;
+@property NSMutableArray *toDoObjects;
+
 @end
 
 @implementation MasterViewController
@@ -26,6 +30,7 @@
     self.navigationItem.rightBarButtonItem = addButton;
     
     [self todoArrayGeneration];
+    
 }
 
 
@@ -54,9 +59,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = self.objects[indexPath.row];
+        ToDo *object = self.toDoObjects[indexPath.row];
         DetailViewController *controller = (DetailViewController *)[segue destinationViewController];
-        [controller setDetailItem:object];
+        [controller setDetailItem:object.todoDesc];
     }
 }
 
@@ -71,18 +76,31 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.objects.count;
+    return self.toDoObjects.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    MyUITableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    ToDo *object = self.toDoObjects[indexPath.row];
+    cell.taskNameLabel.text = [object todoTitle];
+    cell.taskPriorityNumberLabel.text = [NSString stringWithFormat:@"%i",[object priorityNumber]];
     
-    NSDate *object = self.objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    
+    
     return cell;
 }
 
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath   *)indexPath
+{
+    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+}
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
@@ -110,10 +128,9 @@
     ToDo *task4 = [[ToDo alloc] initWithTitle:@"Task4" andDescription:@"Do thing 4" andPriorityNumber:4];
     ToDo *task5 = [[ToDo alloc] initWithTitle:@"Task5" andDescription:@"Do thing 5" andPriorityNumber:5];
     
-    NSMutableArray *todoArray = [[NSMutableArray alloc] initWithObjects:task1,task2,task3, task4, task5, nil];
+ self.toDoObjects = [[NSMutableArray alloc] initWithObjects:task1,task2,task3, task4, task5, nil];
     
-    
-    NSLog(@"%lu Count", (unsigned long)todoArray.count);
+
 }
 
 @end

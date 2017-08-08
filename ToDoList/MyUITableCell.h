@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface MyUITableCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *PriorityNumber;
+@property (weak, nonatomic) IBOutlet UILabel *taskNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *taskPriorityNumberLabel;
+
 
 @end
