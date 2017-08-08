@@ -45,10 +45,16 @@
 
 
 - (void)insertNewObject:(id)sender {
-    if (!self.objects) {
-        self.objects = [[NSMutableArray alloc] init];
+    if (!self.toDoObjects) {
+        self.toDoObjects = [[NSMutableArray alloc] init];
     }
-    [self.objects insertObject:[NSDate date] atIndex:0];
+    
+    NSInteger taskNumber = self.toDoObjects.count + 1;
+    
+    ToDo *newTask = [[ToDo alloc] initWithTitle: [NSString stringWithFormat:@"Tasks %@",@(taskNumber)]andDescription:@"Do Task" andPriorityNumber:@(taskNumber).intValue];
+    
+    [self.toDoObjects insertObject:newTask atIndex:0];
+    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -113,7 +119,18 @@
         [self.objects removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        ToDo *newTask = [[ToDo alloc] initWithTitle:@"task" andDescription:@"task" andPriorityNumber:5];
+        
+        [self.toDoObjects addObject:newTask];
+        
+        [self.tableView reloadData];
+        
+//        ToDo *object = self.toDoObjects[indexPath.row];
+//        cell.taskNameLabel.text = [object todoTitle];
+//        cell.taskPriorityNumberLabel.text = [NSString stringWithFormat:@"%i",[object priorityNumber]];
+        
     }
 }
 
