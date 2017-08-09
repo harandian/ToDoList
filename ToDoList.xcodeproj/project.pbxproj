@@ -16,6 +16,7 @@
 		723F00171F3A371300215F7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 723F00151F3A371300215F7B /* LaunchScreen.storyboard */; };
 		723F00201F3A3C2000215F7B /* ToDo.m in Sources */ = {isa = PBXBuildFile; fileRef = 723F001F1F3A3C2000215F7B /* ToDo.m */; };
 		723F00231F3A428A00215F7B /* MyUITableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 723F00221F3A428A00215F7B /* MyUITableCell.m */; };
+		723F00261F3A624C00215F7B /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 723F00251F3A624C00215F7B /* SecondViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,8 @@
 		723F001F1F3A3C2000215F7B /* ToDo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToDo.m; sourceTree = "<group>"; };
 		723F00211F3A428A00215F7B /* MyUITableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyUITableCell.h; sourceTree = "<group>"; };
 		723F00221F3A428A00215F7B /* MyUITableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyUITableCell.m; sourceTree = "<group>"; };
+		723F00241F3A624C00215F7B /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		723F00251F3A624C00215F7B /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,8 @@
 				723F00081F3A371300215F7B /* AppDelegate.m */,
 				723F000A1F3A371300215F7B /* MasterViewController.h */,
 				723F000B1F3A371300215F7B /* MasterViewController.m */,
+				723F00241F3A624C00215F7B /* SecondViewController.h */,
+				723F00251F3A624C00215F7B /* SecondViewController.m */,
 				723F00211F3A428A00215F7B /* MyUITableCell.h */,
 				723F00221F3A428A00215F7B /* MyUITableCell.m */,
 				723F000D1F3A371300215F7B /* DetailViewController.h */,
@@ -168,6 +173,7 @@
 				723F00231F3A428A00215F7B /* MyUITableCell.m in Sources */,
 				723F00201F3A3C2000215F7B /* ToDo.m in Sources */,
 				723F00091F3A371300215F7B /* AppDelegate.m in Sources */,
+				723F00261F3A624C00215F7B /* SecondViewController.m in Sources */,
 				723F000C1F3A371300215F7B /* MasterViewController.m in Sources */,
 				723F00061F3A371300215F7B /* main.m in Sources */,
 				723F000F1F3A371300215F7B /* DetailViewController.m in Sources */,

@@ -10,9 +10,10 @@
 #import "DetailViewController.h"
 #import "ToDo.h"
 #import "MyUITableCell.h"
+#import "SecondViewController.h"
 
 
-@interface MasterViewController ()
+@interface MasterViewController () <AddItemViewControllerDelegate>
 
 @property NSMutableArray *objects;
 @property NSMutableArray *toDoObjects;
@@ -49,14 +50,32 @@
         self.toDoObjects = [[NSMutableArray alloc] init];
     }
     
-    NSInteger taskNumber = self.toDoObjects.count + 1;
+    SecondViewController *sVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SecondViewController "];
     
-    ToDo *newTask = [[ToDo alloc] initWithTitle: [NSString stringWithFormat:@"Tasks %@",@(taskNumber)]andDescription:@"Do Task" andPriorityNumber:@(taskNumber).intValue];
     
-    [self.toDoObjects insertObject:newTask atIndex:0];
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+//    NSInteger taskNumber = self.toDoObjects.count + 1;
+//    
+//    ToDo *newTask = [[ToDo alloc] initWithTitle: [NSString stringWithFormat:@"Tasks %@",@(taskNumber)]andDescription:@"Do Task" andPriorityNumber:@(taskNumber).intValue];
+    
+//    ToDo *newTask = [[ToDo alloc] init];
+//    sVC.Todo = newTask;
+    
+    // [self.toDoObjects insertObject:sVC.Todo atIndex:0];
+    
+    //   NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    // [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    [sVC isModalInPopover];
+    [self presentModalViewController:sVC animated: YES];
+    
+
+}
+
+- (void)didSaveNewTodo:(ToDo *)todoText{
+    [self.toDoObjects addObject:todoText];
+    [self.tableView reloadData];
 }
 
 
@@ -149,5 +168,8 @@
     
 
 }
+
+#pragma mark - Delegate setting
+
 
 @end
