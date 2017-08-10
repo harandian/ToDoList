@@ -25,6 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.TaskNameTextEntry.delegate = self;
+    self.taskDescTextEntry.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,31 +51,35 @@
     }];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    
-    if (textField.tag == 1) {
-        
-        [self.TaskNameTextEntry resignFirstResponder];
-    
-        self.taskName = textField.text;
-        
-    } else {
-        
-        [self.taskDescTextEntry resignFirstResponder];
-        
-        self.taskDescrip = textField.text;
-
-    }
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
     return YES;
-    
 }
+
+//- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+//    
+//    if (textField.tag == 1) {
+//        
+//        [self.TaskNameTextEntry resignFirstResponder];
+//    
+//        self.taskName = textField.text;
+//        
+//    } else {
+//        
+//        [self.taskDescTextEntry resignFirstResponder];
+//        
+//        self.taskDescrip = textField.text;
+//
+//    }
+//    return YES;
+//    
+//}
 
 - (IBAction)createButton:(id)sender {
     
     [self dismissViewControllerAnimated:YES completion:^{
     
-        [self setTaskLabels];
-        [self didSaveNewTodo: self.Todo];
+        ToDo *todo = [self setTaskLabels];
+        [self.delegate didSaveNewTodo:todo];
         
         // - (void)didSaveNewTodo:(NSString *)todoText{
     }];
@@ -84,24 +90,17 @@
 
 - (ToDo*) setTaskLabels{
     
-    self.Todo = [ToDo new];
+    ToDo *todo = [ToDo new];
     
-    if ([self.taskName length] != 0 )  {
+   // if ([self.taskName length] != 0 )  {
         
-        self.Todo.todoTitle = self.taskName;
-        self.Todo.todoDesc = self.taskDescrip;
-        self.Todo.priorityNumber = 1;
-        NSLog(@"new taks name is %@", self.Todo.todoTitle);
-        }
+        todo.todoTitle = self.TaskNameTextEntry.text;
+        todo.todoDesc = self.taskDescTextEntry.text;
+        todo.priorityNumber = 1;
+        NSLog(@"new taks name is %@", todo.todoTitle);
+   // }
     
-    return self.Todo;
-}
-
-#pragma Delegate setup
-
-- (void) didSaveNewTodo:(ToDo *)todoText {
-    
-    
+    return todo;
 }
 
 

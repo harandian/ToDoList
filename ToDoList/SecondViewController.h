@@ -19,7 +19,7 @@
 @interface SecondViewController : UIViewController <UITextFieldDelegate>
 
 
-@property ToDo *Todo;
+//@property ToDo *Todo;
 @property (nonatomic) id <AddItemViewControllerDelegate> delegate; 
 @end
 

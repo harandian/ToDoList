@@ -17,6 +17,7 @@
 
 @property NSMutableArray *objects;
 @property NSMutableArray *toDoObjects;
+@property  UITableViewCell *swipedCell;
 
 @end
 
@@ -29,8 +30,13 @@
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
-    
     [self todoArrayGeneration];
+    
+    UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                     action:@selector(rightSwipe:)];
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [self.tableView addGestureRecognizer:recognizer];
+    
     
 }
 
@@ -51,26 +57,25 @@
     }
     
     SecondViewController *sVC = [self.storyboard instantiateViewControllerWithIdentifier:@"SecondViewController "];
+    sVC.delegate = self;
+    
+    [sVC setModalInPopover:YES];
+    [self presentViewController:sVC animated:YES completion:nil];
+    
+    //    ToDo *newTask = [ToDo new];
+    //
+    //    newTask = sVC.delegate;
+    //
+    //
+    //     [self.toDoObjects insertObject:newTask atIndex:0];
+    //
+    //    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    //
+    //     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    //
     
     
     
-    
-//    NSInteger taskNumber = self.toDoObjects.count + 1;
-//    
-//    ToDo *newTask = [[ToDo alloc] initWithTitle: [NSString stringWithFormat:@"Tasks %@",@(taskNumber)]andDescription:@"Do Task" andPriorityNumber:@(taskNumber).intValue];
-    
-//    ToDo *newTask = [[ToDo alloc] init];
-//    sVC.Todo = newTask;
-    
-    // [self.toDoObjects insertObject:sVC.Todo atIndex:0];
-    
-    //   NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    // [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    
-    [sVC isModalInPopover];
-    [self presentModalViewController:sVC animated: YES];
-    
-
 }
 
 - (void)didSaveNewTodo:(ToDo *)todoText{
@@ -96,6 +101,7 @@
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     return 1;
 }
 
@@ -110,6 +116,15 @@
     ToDo *object = self.toDoObjects[indexPath.row];
     cell.taskNameLabel.text = [object todoTitle];
     cell.taskPriorityNumberLabel.text = [NSString stringWithFormat:@"%i",[object priorityNumber]];
+    
+    
+    if (cell.isStricken == YES) {
+        
+        
+        NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:((ToDo*)self.toDoObjects[indexPath.row]).todoTitle];
+        [titleString addAttribute:NSStrikethroughStyleAttributeName value:@2 range:NSMakeRange(0, [titleString length])];
+        cell.textLabel.attributedText = titleString;
+    }
     
     
     
@@ -146,12 +161,11 @@
         
         [self.tableView reloadData];
         
-//        ToDo *object = self.toDoObjects[indexPath.row];
-//        cell.taskNameLabel.text = [object todoTitle];
-//        cell.taskPriorityNumberLabel.text = [NSString stringWithFormat:@"%i",[object priorityNumber]];
         
     }
+    
 }
+
 
 
 #pragma mark - Todo List Creation
@@ -164,12 +178,25 @@
     ToDo *task4 = [[ToDo alloc] initWithTitle:@"Task4" andDescription:@"Do thing 4" andPriorityNumber:4];
     ToDo *task5 = [[ToDo alloc] initWithTitle:@"Task5" andDescription:@"Do thing 5" andPriorityNumber:5];
     
- self.toDoObjects = [[NSMutableArray alloc] initWithObjects:task1,task2,task3, task4, task5, nil];
+    self.toDoObjects = [[NSMutableArray alloc] initWithObjects:task1,task2,task3, task4, task5, nil];
     
-
+    
 }
 
-#pragma mark - Delegate setting
+
+- (void)rightSwipe:(UISwipeGestureRecognizer *)gestureRecognizer
+{
+    CGPoint location = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    MyUITableCell *swipedCell = [self.tableView cellForRowAtIndexPath:indexPath];
+
+
+    swipedCell.isStricken = YES;
+    
+    [self.tableView reloadData];
+    //show some menu in the cell position( its cell.frame)
+}
+
 
 
 @end

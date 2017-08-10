@@ -101,6 +101,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="taskNameLabel" destination="NVg-kB-ey1" id="VKf-l7-goB"/>
                                     <outlet property="taskPriorityNumberLabel" destination="bCd-v3-dnH" id="JFK-Rh-nLL"/>

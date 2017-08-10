@@ -11,6 +11,7 @@
 @interface MyUITableCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *taskNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *taskPriorityNumberLabel;
+@property BOOL isStricken;
 
 
 @end
